@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-'''Module to test utils file
-'''
+""" Module for testing utils """
+
 from parameterized import parameterized
 import unittest
-from utils import (access_nested_map, get_json, memoize)
 from unittest.mock import patch
+from utils import (access_nested_map, get_json, memoize)
+import requests
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    '''class for testing access_nestd_map function
-    '''
+    """ Class for Testing Access Nested Map """
 
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
@@ -17,8 +17,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
     def test_access_nested_map(self, nested_map, path, expected):
-        """ Test that the method returns what it is supposed to
-        """
+        """ Test that the method returns what it is supposed to """
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
@@ -40,8 +39,7 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False})
     ])
     def test_get_json(self, test_url, test_payload):
-        """ Test for the utils.get_json function to check
-        that it returns the expected result."""
+        """ Test that utils.get_json returns the expected result."""
         config = {'return_value.json.return_value': test_payload}
         patcher = patch('requests.get', **config)
         mock = patcher.start()
@@ -51,12 +49,12 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    """ test class to tes utils.memoize"""
+    """ Class for Testing Memoize """
 
     def test_memoize(self):
-        """ Tests the function when calling a_property twice,
-        the correct result is returned but a_method is only
-        called once using assert_called_once
+        """ Test that when calling a_property twice, the correct result
+        is returned but a_method is only called once using
+        assert_called_once
         """
 
         class TestClass:
